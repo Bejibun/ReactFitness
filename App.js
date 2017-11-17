@@ -1,23 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Slider, Switch, TextInput, KeyboardAvoidingView, Image  } from 'react-native';
 import AddEntry from './components/AddEntry'
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <View style ={styles.container}>
-      <Slider
-        minimumValue={-10}
-        maximumValue={10}
-        step={1}
-        value = {this.state.value} onValueChange={(value) => this.setState(() => ({ value }))}
-         />
-      <Text>
-        Value: {this.state.value}
-      </Text>
-      </View>
-    );
+  state = {
+    input: @"fransraharja",
+    showInput: false,
   }
+
+handleToggleSwitch = () => {
+  this.setState((state) =>  ({
+    showInput: !state.showInput,
+  }))
+}
+
+handleTextChange = (input) => {
+  this.setState(() => {
+    input
+  })
+}
+
+  render() {
+    const { input, showInput } = this.state
+    return (
+      <Provider store={createStore(reducer)}>
+        <View>
+          <View style={{flex: 1}}>
+        </View>
+      </Provider>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -28,3 +39,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+import React from 'react'
+import { View } from 'react-native'
+import AddEntry from './components/AddEntry'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
