@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Slider, Switch, TextInput, KeyboardAvoidingView, Image  } from 'react-native';
 import AddEntry from './components/AddEntry'
+import History from './components/History'
 
 export default class App extends React.Component {
   state = {
@@ -26,6 +27,7 @@ handleTextChange = (input) => {
       <Provider store={createStore(reducer)}>
         <View>
           <View style={{flex: 1}}>
+            <History />
         </View>
       </Provider>
     )
