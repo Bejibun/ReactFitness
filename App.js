@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Slider, Platform, Switch, TextInput, StatusBar, KeyboardAvoidingView, Image, Animated  } from 'react-native';
+import { StyleSheet, Text, View, Slider, Platform, Switch, TextInput, StatusBar, KeyboardAvoidingView, Image, Animated, ImageEditor, TouchableOpacity, Image  } from 'react-native';
 import AddEntry from './components/AddEntry'
 import History from './components/History'
 import { TabNavigator,StackNavigator, DrawerNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { Constants, Location } from 'expo'
+import { Constants, Location, ImagePicker } from 'expo'
 import Live from './components/Live'
+import { setLocalNotification } from './utils/helpers'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
  return (
@@ -129,7 +130,32 @@ export default class App extends React.Component {
   state = {
     input: @"fransraharja",
     showInput: false,
+    image = null
   }
+
+  componentDidMount() {
+     setLocalNotification()
+   }
+
+   pickImage = () => {
+     ImagePicker.launchImageLibraryAsync({
+       allowEditing: true,
+       aspect: [2,1]
+     }).then((result) => {
+       if (result.cancelled) {
+         return
+       }
+
+       ImageEditor.cropImage(result.uri, {}
+         offset: { x: 0, y: 0},
+         size: {width: result.width, height: result.height},
+         displaySize: {width: 200, height: 100},
+         resizeMode: 'contain',
+       },
+       (uri) => this.setState(() => ({ image: uri})),
+       () => console.log(`Error`))
+     })
+   }
 
 handleToggleSwitch = () => {
   this.setState((state) =>  ({
